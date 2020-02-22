@@ -21,6 +21,7 @@
     "typescript": "^3.8.2"
   },
   "dependencies": {
+    "@types/pino": "^5.15.5",
     "pino": "^5.16.0"
   }
 }
