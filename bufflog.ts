@@ -6,6 +6,10 @@ export class BuffLog {
     constructor() {
         this.pinoLogger = require('pino')({
             'level': this.defaultLevel,
+
+            // probably we want to call it `msg`. if so, let's change the PHP library instead
+            'messageKey': 'message',
+
             // notice doesn't exist in pino, let's add it
             customLevels: {
                 notice: 35
