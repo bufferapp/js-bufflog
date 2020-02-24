@@ -27,7 +27,7 @@ export class BuffLog {
                 } else {
                     return {}
                 }
-            }
+            },
 
             // notice doesn't exist in pino, let's add it
             customLevels: {
