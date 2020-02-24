@@ -10,11 +10,12 @@ tracer.init({
 let logger = new BuffLog();
 
 logger.info('hello info');
-logger.debug('hello debug');
 logger.notice('hello notice');
+logger.notice('hello notice with context', {"test":"toto"});
 logger.warning('hello warning');
 logger.error('hello error');
 logger.critical('hello critical');
+logger.critical('hello critical', {"some":"stuff"});
 
 const app = express();
 
