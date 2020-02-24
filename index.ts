@@ -1,21 +1,19 @@
 import tracer from "dd-trace";
 import express from 'express';
-import {BuffLog} from './bufflog';
+import  bufflog from './bufflog';
 
 tracer.init({
     hostname: "dd-agent-hostname",
     logInjection: false
 });
 
-let logger = new BuffLog();
-
-logger.info('hello info');
-logger.notice('hello notice');
-logger.notice('hello notice with context', {"test":"toto"});
-logger.warning('hello warning');
-logger.error('hello error');
-logger.critical('hello critical');
-logger.critical('hello critical', {"some":"stuff"});
+bufflog.info('hello info');
+bufflog.notice('hello notice');
+bufflog.notice('hello notice with context', {"test":"toto"});
+bufflog.warning('hello warning');
+bufflog.error('hello error');
+bufflog.critical('hello critical');
+bufflog.critical('hello critical', {"some":"stuff"});
 
 const app = express();
 
@@ -24,12 +22,11 @@ app.listen(4000, () => {
 });
 
 app.get('/', (req, res) =>  {
-    var logger = new BuffLog();
-    logger.notice("Notice log via endpoint");
-    logger.info('hello info');
-    logger.debug('hello debug');
-    logger.notice('hello notice');
-    logger.warning('hello warning');
-    logger.error('hello error');
-    logger.critical('hello critical');
+    bufflog.notice("Notice log via endpoint");
+    bufflog.info('hello info');
+    bufflog.debug('hello debug');
+    bufflog.notice('hello notice');
+    bufflog.warning('hello warning');
+    bufflog.error('hello error');
+    bufflog.critical('hello critical');
 });
