@@ -36,29 +36,30 @@ export class BuffLog {
         });
     }
 
-    debug(message: string) {
-        this.pinoLogger.debug(message);
+    debug(message: string, context?: object) {
+        this.pinoLogger.debug({context: context}, message);
     }
 
-    info(message: string) {
+    info(message: string, context?: object) {
         this.pinoLogger.info(message);
     }
 
-    notice(message: string) {
-        this.pinoLogger.notice(message);
+    notice(message: string, context?: object) {
+        this.pinoLogger.notice({context: context}, message);
     }
 
-    warning(message: string) {
-        this.pinoLogger.warn(message);
+    warning(message: string, context?: object) {
+        this.pinoLogger.warn({context: context}, message);
     }
 
-    error(message: string) {
-        this.pinoLogger.error(message);
+    error(message: string, context?: object) {
+        this.pinoLogger.error({context: context}, message);
+
     }
 
     // for consistency with php-bufflog, critical == fatal
-    critical(message: string) {
-        this.pinoLogger.fatal(message);
+    critical(message: string, context?: object) {
+        this.pinoLogger.fatal({context: context}, message);
     }
 
 }
