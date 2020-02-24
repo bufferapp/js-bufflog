@@ -3,7 +3,7 @@ import formats from "dd-trace/ext/formats";
 
 export class BuffLog {
     pinoLogger: any;
-    defaultLevel = 'notice';
+    defaultLevel = String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) || "notice";;
 
     constructor() {
         this.pinoLogger = require('pino')({
