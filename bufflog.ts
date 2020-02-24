@@ -16,14 +16,14 @@ export class BuffLog {
             // probably we want to call it `msg`. if so, let's change the PHP library instead
             messageKey: 'message',
 
-            // `notice` level doesn't exist in pino, let's create it
-            customLevels: {
-                notice: 35
-              },
-
             // Define "base" fields
             // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
             base: {},
+
+            // notice doesn't exist in pino, let's add it
+            customLevels: {
+                notice: 35
+              },
             mixin () {
                 // Check here if a current trace exist to inject it in the log
                 // `tracer` is a singleton, will no-op if no tracer was initialized
