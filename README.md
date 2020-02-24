@@ -1,6 +1,16 @@
 # js-bufflog
 logger for all javascript and typescript Buffer services
 
+# Usage
+```js
+import bufflog from "BuffLog";
+
+bufflog.debug('hello critical', {"some":"stuff"});
+bufflog.info('hello info');
+bufflog.notice('hello notice with context', {"foo":"bar"});
+bufflog.error('hello error');
+bufflog.critical('hello critical');
+```
 
 ## Log verbosity levels
 
