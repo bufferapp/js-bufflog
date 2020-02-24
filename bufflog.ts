@@ -1,24 +1,39 @@
+import tracer from "dd-trace";
+import formats from "dd-trace/ext/formats";
 
 export class BuffLog {
     pinoLogger: any;
     defaultLevel = 'notice';
 
     constructor() {
+
         this.pinoLogger = require('pino')({
             level: this.defaultLevel,
 
             // probably we want to call it `msg`. if so, let's change the PHP library instead
             messageKey: 'message',
 
-            // Define "base" fields
-            // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
-            base: {
-            },
-
-            // notice doesn't exist in pino, let's add it
+            // `notice` level doesn't exist in pino, let's create it
             customLevels: {
                 notice: 35
-              }
+              },
+
+            // Define "base" fields
+            // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
+            base: {},
+
+            mixin () {
+                // Check here if a current trace exist to inject it in the log
+                // `tracer` is a singleton, will no-op if no tracer was initialized
+                var span = tracer.scope().active()
+                if (span) {
+                    const traceInfo = {}
+                    tracer.inject(span.context(), formats.LOG, traceInfo);
+                    return traceInfo;
+                } else {
+                    return {}
+                }
+            }
         });
     }
 
