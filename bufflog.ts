@@ -4,8 +4,11 @@ import formats from "dd-trace/ext/formats";
 export class BuffLog {
     pinoLogger: any;
     defaultLevel = 'notice';
+    dest: any;
 
     constructor() {
+        this.dest = require('pino').destination('/tmp/test.log')
+        this.dest[Symbol.for('pino.metadata')] = true
 
         this.pinoLogger = require('pino')({
             level: this.defaultLevel,
@@ -21,7 +24,6 @@ export class BuffLog {
             // Define "base" fields
             // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
             base: {},
-
             mixin () {
                 // Check here if a current trace exist to inject it in the log
                 // `tracer` is a singleton, will no-op if no tracer was initialized
@@ -34,8 +36,8 @@ export class BuffLog {
                     return {}
                 }
             }
-        });
-    }
+        }, this.dest)
+    };
 
     debug(message: string) {
         this.pinoLogger.debug(message);
@@ -47,6 +49,11 @@ export class BuffLog {
 
     notice(message: string) {
         this.pinoLogger.notice(message);
+        const { lastMsg, lastLevel, lastObj, lastTime} = this.dest
+        console.log(
+            'Logged message "%s" at level %d with object %o at time %s',
+            lastMsg, lastLevel, lastObj, lastTime
+          );
     }
 
     warning(message: string) {
@@ -61,5 +68,6 @@ export class BuffLog {
     critical(message: string) {
         this.pinoLogger.fatal(message);
     }
+    
 
 }
