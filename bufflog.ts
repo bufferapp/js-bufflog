@@ -1,9 +1,7 @@
-import tracer from "dd-trace";
-import formats from "dd-trace/ext/formats";
 
 export class BuffLog {
     pinoLogger: any;
-    defaultLevel = String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) || "notice";;
+    defaultLevel = process.env.LOG_LEVEL ? String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) : "notice";
 
     constructor() {
         this.pinoLogger = require('pino')({
@@ -15,19 +13,6 @@ export class BuffLog {
             // Define "base" fields
             // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
             base: {},
-
-            mixin () {
-                // Check here if a current trace exist to inject it in the log
-                // `tracer` is a singleton, will no-op if no tracer was initialized
-                var span = tracer.scope().active()
-                if (span) {
-                    const traceInfo = {}
-                    tracer.inject(span.context(), formats.LOG, traceInfo);
-                    return traceInfo;
-                } else {
-                    return {}
-                }
-            },
 
             // notice doesn't exist in pino, let's add it
             customLevels: {
