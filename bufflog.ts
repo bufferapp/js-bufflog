@@ -54,7 +54,6 @@ export class BuffLog {
 
     error(message: string, context?: object) {
         this.pinoLogger.error({context: context}, message);
-
     }
 
     // for consistency with php-bufflog, critical == fatal
@@ -63,3 +62,6 @@ export class BuffLog {
     }
 
 }
+
+var bufflog = new BuffLog();
+export default bufflog;
