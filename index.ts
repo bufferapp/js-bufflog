@@ -1,6 +1,6 @@
 import tracer from "dd-trace";
 import express from 'express';
-import  bufflog from './bufflog';
+import bufflog from './bufflog';
 
 tracer.init({
     hostname: "dd-agent-hostname",
