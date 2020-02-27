@@ -20,15 +20,15 @@ export class BuffLog {
     }
 
     static info(message: string, context?: object) {
-        pinoLogger.info(message);
+        pinoLogger.info({context: context}, message);
     }
 
     static notice(message: string, context?: object) {
-        pinoLogger.notice(message, context);
+        pinoLogger.notice({context: context}, message);
     }
 
     static warning(message: string, context?: object) {
-        pinoLogger.warn(message, context);
+        pinoLogger.warn({context: context}, message);
     }
 
     static error(message: string, context?: object) {
