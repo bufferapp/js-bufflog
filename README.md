@@ -1,10 +1,16 @@
 # js-bufflog
 logger for all javascript and typescript Buffer services
 
-# Usage
+## Install
+`npm i @bufferapp/bufflog`
+
+## Usage
 ```js
+
+// ES6: 
 import { BuffLog } from 'BuffLog';
 
+// const BuffLog = require('@bufferapp/bufflog').BuffLog
 
 BuffLog.debug('hello critical', {"some":"stuff"});
 BuffLog.info('hello info');
