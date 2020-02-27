@@ -13,30 +13,27 @@ const pinoLogger = require('pino')({
       }
 });
 
-export class BuffLog {
+export function debug(message: string, context?: object) {
+    pinoLogger.debug({context: context}, message);
+}
 
-    static debug(message: string, context?: object) {
-        pinoLogger.debug({context: context}, message);
-    }
+export function info(message: string, context?: object) {
+    pinoLogger.info({context: context}, message);
+}
 
-    static info(message: string, context?: object) {
-        pinoLogger.info({context: context}, message);
-    }
+export function notice(message: string, context?: object) {
+    pinoLogger.notice({context: context}, message);
+}
 
-    static notice(message: string, context?: object) {
-        pinoLogger.notice({context: context}, message);
-    }
+export function warning(message: string, context?: object) {
+    pinoLogger.warn({context: context}, message);
+}
 
-    static warning(message: string, context?: object) {
-        pinoLogger.warn({context: context}, message);
-    }
+export function error(message: string, context?: object) {
+    pinoLogger.error({context: context}, message);
+}
 
-    static error(message: string, context?: object) {
-        pinoLogger.error({context: context}, message);
-    }
-
-    // for consistency with php-bufflog, critical == fatal
-    static critical(message: string, context?: object) {
-        pinoLogger.fatal({context: context}, message);
-    }
+// for consistency with php-bufflog, critical == fatal
+export function critical(message: string, context?: object) {
+    pinoLogger.fatal({context: context}, message);
 }
