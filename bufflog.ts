@@ -1,52 +1,42 @@
+const pinoLogger = require('pino')({
+    level: process.env.LOG_LEVEL ? String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) : "notice",
+    // probably we want to call it `msg`. if so, let's change the PHP library instead
+    messageKey: 'message',
+
+    // Define "base" fields
+    // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
+    base: {},
+
+    // notice doesn't exist in pino, let's add it
+    customLevels: {
+        notice: 35
+      }
+});
 
 export class BuffLog {
-    pinoLogger: any;
-    defaultLevel = process.env.LOG_LEVEL ? String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) : "notice";
 
-    constructor() {
-        this.pinoLogger = require('pino')({
-            level: this.defaultLevel,
-
-            // probably we want to call it `msg`. if so, let's change the PHP library instead
-            messageKey: 'message',
-
-            // Define "base" fields
-            // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
-            base: {},
-
-            // notice doesn't exist in pino, let's add it
-            customLevels: {
-                notice: 35
-              }
-        });
+    static debug(message: string, context?: object) {
+        pinoLogger.debug({context: context}, message);
     }
 
-    debug(message: string, context?: object) {
-        this.pinoLogger.debug({context: context}, message);
+    static info(message: string, context?: object) {
+        pinoLogger.info({context: context}, message);
     }
 
-    info(message: string, context?: object) {
-        this.pinoLogger.info(message);
+    static notice(message: string, context?: object) {
+        pinoLogger.notice({context: context}, message);
     }
 
-    notice(message: string, context?: object) {
-        this.pinoLogger.notice({context: context}, message);
+    static warning(message: string, context?: object) {
+        pinoLogger.warn({context: context}, message);
     }
 
-    warning(message: string, context?: object) {
-        this.pinoLogger.warn({context: context}, message);
-    }
-
-    error(message: string, context?: object) {
-        this.pinoLogger.error({context: context}, message);
+    static error(message: string, context?: object) {
+        pinoLogger.error({context: context}, message);
     }
 
     // for consistency with php-bufflog, critical == fatal
-    critical(message: string, context?: object) {
-        this.pinoLogger.fatal({context: context}, message);
+    static critical(message: string, context?: object) {
+        pinoLogger.fatal({context: context}, message);
     }
-
 }
-
-var bufflog = new BuffLog();
-export default bufflog;
