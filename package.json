@@ -1,5 +1,5 @@
 {
-  "name": "js-bufflog",
+  "name": "bufflog",
   "version": "0.0.1",
   "description": "logger for all javascript and typescript Buffer services",
   "main": "dist/bufflog.js",
