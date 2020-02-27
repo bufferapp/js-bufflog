@@ -5,3 +5,4 @@ node_modules
 built
 coverage
 out
+dist
