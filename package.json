@@ -4,7 +4,7 @@
   "description": "logger for all javascript and typescript Buffer services",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/typescript/bin/tsc && node ./out/index.js",
+    "start": "./node_modules/typescript/bin/tsc && node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
