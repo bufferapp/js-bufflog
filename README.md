@@ -8,10 +8,10 @@ logger for all javascript and typescript Buffer services
 ```js
 
 // CommonJS style
-const BuffLog = require('./bufflog');
+const BuffLog = require('bufflog');
 
 // ES6 style
-import * as BuffLog  from "./bufflog";
+import * as BuffLog  from "bufflog";
 
 BuffLog.debug('hello critical', {"some":"stuff"});
 BuffLog.info('hello info');
