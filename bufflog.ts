@@ -6,11 +6,18 @@ const pinoLogger = require('pino')({
     // Define "base" fields
     // soon: remove the `v` field https://github.com/pinojs/pino/issues/620
     base: {},
-
     // notice doesn't exist in pino, let's add it
     customLevels: {
-        notice: 35
-      }
+        debug: 100,
+        info: 200,
+        notice: 250,
+        warn: 300,
+        error: 400,
+        fatal: 500
+      },
+      // necessary if we want to override the level "number"
+      useOnlyCustomLevels: true, 
+
 });
 
 export function debug(message: string, context?: object) {
