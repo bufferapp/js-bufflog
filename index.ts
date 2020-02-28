@@ -13,8 +13,9 @@ tracer.init({
     logInjection: true
 });
 
-BuffLog.notice('hello notice');
+BuffLog.debug('hello debug');
 BuffLog.info('hello info');
+BuffLog.notice('hello notice');
 BuffLog.notice('hello notice with context', {"test":"toto"});
 BuffLog.warning('hello warning');
 BuffLog.error('hello error');
