@@ -7,10 +7,11 @@ logger for all javascript and typescript Buffer services
 ## Usage
 ```js
 
-// ES6: 
-import { BuffLog } from 'BuffLog';
+// CommonJS style
+const BuffLog = require('bufflog');
 
-// const BuffLog = require('@bufferapp/bufflog').BuffLog
+// ES6 style
+import * as BuffLog  from "bufflog";
 
 BuffLog.debug('hello critical', {"some":"stuff"});
 BuffLog.info('hello info');

@@ -1,6 +1,11 @@
 import tracer from "dd-trace";
 import express from 'express';
-import { BuffLog } from './bufflog';
+
+// CommonJS style
+//const BuffLog = require('./bufflog');
+
+// ES6 style
+import * as BuffLog  from "./bufflog";
 
 tracer.init({
     hostname: "dd-agent-hostname",
