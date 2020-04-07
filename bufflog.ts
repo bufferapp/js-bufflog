@@ -20,6 +20,10 @@ const pinoLogger = require('pino')({
 
 });
 
+export function getLogger() {
+    return pinoLogger;
+}
+
 export function debug(message: string, context?: object) {
     pinoLogger.debug({context: context}, message);
 }
