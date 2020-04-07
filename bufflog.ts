@@ -51,6 +51,17 @@ export function critical(message: string, context?: object) {
 
 export function middleware() {
     return require('pino-http')({
-       logger: pinoLogger
+       logger: pinoLogger,
+
+    // Define a custom logger level
+    customLogLevel: function (res: any, err: any) {
+        if (res.statusCode >= 400 && res.statusCode < 500) {
+            // for now, we don't want notice notification on the 4xx
+            return 'info'
+        } else if (res.statusCode >= 500 || err) {
+           return 'error'
+        }
+        return 'info'
+    },
    })
 }
