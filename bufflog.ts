@@ -48,3 +48,9 @@ export function error(message: string, context?: object) {
 export function critical(message: string, context?: object) {
     pinoLogger.fatal({context: context}, message);
 }
+
+export function middleware() {
+    return require('pino-http')({
+       logger: pinoLogger
+   })
+}

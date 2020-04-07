@@ -53,3 +53,9 @@ tracer.init({
     // ... all other options...
 });
 ```
+
+## Use bufflog middleware with express
+```js
+const app = express();
+app.use(BuffLog.middleware())
+```

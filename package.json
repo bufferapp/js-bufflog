@@ -25,7 +25,8 @@
   "dependencies": {
     "@types/pino": "^5.15.5",
     "dd-trace": "^0.18.0",
-    "pino": "^5.16.0"
+    "pino": "^5.16.0",
+    "pino-http": "^5.0.0"
   },
   "types": "dist/bufflog.d.ts",
   "prepublish": "./node_modules/typescript/bin/tsc"
