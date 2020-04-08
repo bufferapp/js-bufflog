@@ -53,12 +53,10 @@ export function critical(message: string, context?: object) {
 
 export function middleware(options?: Options) {
 
-    // be aware of the non-null assertion operator:  https://stackoverflow.com/a/57062363
     const {  logger, genReqId, useLevel, stream, autoLogging, customLogLevel  } : Options = options || {};
 
     return require('pino-http')({
        logger: logger || pinoLogger,
-       autoLogging: autoLogging || true,
 
         // Define a custom logger level
         customLogLevel: customLogLevel || function (res: any, err: any) {
