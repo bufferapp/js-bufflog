@@ -1,3 +1,5 @@
+import  { Options }  from "pino-http";
+
 const pinoLogger = require('pino')({
     level: process.env.LOG_LEVEL ? String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) : "notice",
     // probably we want to call it `msg`. if so, let's change the PHP library instead
@@ -49,19 +51,22 @@ export function critical(message: string, context?: object) {
     pinoLogger.fatal({context: context}, message);
 }
 
-export function middleware() {
-    return require('pino-http')({
-       logger: pinoLogger,
+export function middleware(options?: Options) {
 
-    // Define a custom logger level
-    customLogLevel: function (res: any, err: any) {
-        if (res.statusCode >= 400 && res.statusCode < 500) {
-            // for now, we don't want notice notification on the 4xx
+    const {  logger, genReqId, useLevel, stream, autoLogging, customLogLevel  } : Options = options || {};
+
+    return require('pino-http')({
+       logger: logger || pinoLogger,
+
+        // Define a custom logger level
+        customLogLevel: customLogLevel || function (res: any, err: any) {
+            if (res.statusCode >= 400 && res.statusCode < 500) {
+                // for now, we don't want notice notification on the 4xx
+                return 'info'
+            } else if (res.statusCode >= 500 || err) {
+            return 'error'
+            }
             return 'info'
-        } else if (res.statusCode >= 500 || err) {
-           return 'error'
-        }
-        return 'info'
-    },
+        },
    })
 }

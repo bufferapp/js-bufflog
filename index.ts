@@ -24,7 +24,11 @@ BuffLog.critical('hello critical', {"some":"stuff"});
 
 const app = express();
 
-app.use(BuffLog.middleware())
+ app.use(BuffLog.middleware())
+
+// use custom parameter , here a pino logger
+ app.use(BuffLog.middleware({'logger': require('pino')()}))
+
 
 app.listen(4000, () => {
     console.log(`Server is listening on port 4000`);
