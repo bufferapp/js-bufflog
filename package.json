@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@types/pino": "^5.15.5",
-    "dd-trace": "^0.18.0",
+    "dd-trace": "^0.36.1",
     "pino": "^5.16.0",
     "pino-http": "^5.0.0"
   },
