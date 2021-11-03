@@ -16,7 +16,7 @@ const pinoLogger = require('pino')({
         fatal: 500
       },
       // necessary if we want to override the level "number"
-      useOnlyCustomLevels: true, 
+      useOnlyCustomLevels: true,
 
 });
 
@@ -65,3 +65,16 @@ export function middleware() {
     },
    })
 }
+
+const BuffLog = {
+    getLogger,
+    debug,
+    info,
+    notice,
+    warning,
+    error,
+    critical,
+    middleware,
+}
+
+export default BuffLog

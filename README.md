@@ -8,16 +8,16 @@ logger for all javascript and typescript Buffer services
 ```js
 
 // CommonJS style
-const bufflog = require('@bufferapp/bufflog');
+const Bufflog = require('@bufferapp/bufflog');
 
 // ES6 style
-import * as bufflog  from "@bufferapp/bufflog";
+import Bufflog  from "@bufferapp/bufflog";
 
-bufflog.debug('hello critical', {"some":"stuff"});
-bufflog.info('hello info');
-bufflog.notice('hello notice with context', {"foo":"bar"});
-bufflog.error('hello error');
-bufflog.critical('hello critical');
+Bufflog.debug('hello critical', {"some":"stuff"});
+Bufflog.info('hello info');
+Bufflog.notice('hello notice with context', {"foo":"bar"});
+Bufflog.error('hello error');
+Bufflog.critical('hello critical');
 ```
 
 ## Log verbosity levels
@@ -57,5 +57,5 @@ tracer.init({
 ## Use bufflog middleware with express
 ```js
 const app = express();
-app.use(bufflog.middleware())
+app.use(Bufflog.middleware())
 ```
