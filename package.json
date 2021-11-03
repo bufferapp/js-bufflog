@@ -1,6 +1,6 @@
 {
   "name": "@bufferapp/bufflog",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "logger for all javascript and typescript Buffer services",
   "main": "dist/bufflog.js",
   "scripts": {
