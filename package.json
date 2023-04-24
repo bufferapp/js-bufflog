@@ -1,6 +1,6 @@
 {
   "name": "@bufferapp/bufflog",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "logger for all javascript and typescript Buffer services",
   "main": "dist/bufflog.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@types/pino": "^5.15.5",
-    "dd-trace": "^0.36.1",
+    "dd-trace": "2.30.1",
     "pino": "^5.16.0",
     "pino-http": "~5.0.0"
   },
