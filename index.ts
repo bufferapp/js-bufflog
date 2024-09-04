@@ -21,6 +21,7 @@ BuffLog.warning('hello warning');
 BuffLog.error('hello error');
 BuffLog.critical('hello critical');
 BuffLog.critical('hello critical', {"some":"stuff"});
+BuffLog.critical<{type: string}>('hello critical', {"type":"with type enforced context"});
 
 const app = express();
 
