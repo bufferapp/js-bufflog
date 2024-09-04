@@ -24,28 +24,28 @@ export function getLogger() {
     return pinoLogger;
 }
 
-export function debug(message: string, context?: object) {
+export function debug<T extends object>(message: string, context?: T) {
     pinoLogger.debug({context: context}, message);
 }
 
-export function info(message: string, context?: object) {
+export function info<T extends object>(message: string, context?: T) {
     pinoLogger.info({context: context}, message);
 }
 
-export function notice(message: string, context?: object) {
+export function notice<T extends object>(message: string, context?: T) {
     pinoLogger.notice({context: context}, message);
 }
 
-export function warning(message: string, context?: object) {
+export function warning<T extends object>(message: string, context?: T) {
     pinoLogger.warn({context: context}, message);
 }
 
-export function error(message: string, context?: object) {
+export function error<T extends object>(message: string, context?: T) {
     pinoLogger.error({context: context}, message);
 }
 
 // for consistency with php-bufflog, critical == fatal
-export function critical(message: string, context?: object) {
+export function critical<T extends object>(message: string, context?: T) {
     pinoLogger.fatal({context: context}, message);
 }
 
