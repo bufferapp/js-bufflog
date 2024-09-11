@@ -1,8 +1,5 @@
-import tracer from "dd-trace";
+import tracer from 'dd-trace';
 import express from 'express';
-
-// CommonJS style
-// const BuffLog = require('./bufflog');
 
 // ES6 style
 import BuffLog from "./bufflog";
