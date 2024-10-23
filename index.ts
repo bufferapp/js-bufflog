@@ -13,7 +13,7 @@ tracer.init({
 BuffLog.debug('hello debug');
 BuffLog.info('hello info');
 BuffLog.notice('hello notice');
-BuffLog.notice('hello notice with context', {"test":"toto"});
+BuffLog.notice('hello notice with context to redact', {"test":"toto", "password":"must-redact", req: {headers: {cookie: "must-redact"}}});
 BuffLog.warning('hello warning');
 BuffLog.error('hello error');
 BuffLog.critical('hello critical');

@@ -20,33 +20,78 @@ const pinoLogger = require('pino')({
 
 });
 
+import redact from 'redact-object'
+
+export const KEYS_TO_REDACT = [
+    '__dd_span',
+    '_datadog',
+    'access_token',
+    'access-token',
+    'accessToken',
+    'publishAccessToken',
+    'access_token_secret',
+    'access-token-secret',
+    'accessTokenSecret',
+    'appsecret_proof',
+    'appsecret_time',
+    'authorization',
+    'buffer_session',
+    'bufferapp_ci_session',
+    'codeVerifier',
+    'cookie',
+    'credentials',
+    'input_token',
+    'password',
+    'rawHeaders',
+    'refresh_token',
+    'refresh-token',
+    'refreshToken',
+    'secret',
+    'shared_access_token',
+    'shared-access-token',
+    'sharedAccessToken',
+    'x-buffer-authentication-access-token',
+    'x-buffer-authentication-jwt',
+    'x-buffer-authorization-jwt',
+]
+
 export function getLogger() {
     return pinoLogger;
 }
 
+function sanitizeContext(context?: object): object | undefined {
+    if (!context) {
+        return
+    }
+
+    return redact(context, KEYS_TO_REDACT, '[ REDACTED ]', {
+        ignoreUnknown: true,
+    })
+}
+
 export function debug(message: string, context?: object) {
-    pinoLogger.debug({context: context}, message);
+    pinoLogger.debug({context: sanitizeContext(context)}, message);
 }
 
 export function info(message: string, context?: object) {
-    pinoLogger.info({context: context}, message);
+    pinoLogger.info({context: sanitizeContext(context)}, message);
 }
 
 export function notice(message: string, context?: object) {
-    pinoLogger.notice({context: context}, message);
+    pinoLogger.notice({context: sanitizeContext(context)}, message);
 }
 
 export function warning(message: string, context?: object) {
-    pinoLogger.warn({context: context}, message);
+    pinoLogger.warn({context: sanitizeContext(context)}, message);
 }
 
 export function error(message: string, context?: object) {
-    pinoLogger.error({context: context}, message);
+    pinoLogger.error({context: sanitizeContext(context)}, message);
 }
 
 // for consistency with php-bufflog, critical == fatal
 export function critical(message: string, context?: object) {
-    pinoLogger.fatal({context: context}, message);
+    pinoLogger.fatal({context: sanitizeContext(context)}, message);
 }
 
 export function middleware() {
