@@ -1,6 +1,6 @@
 {
   "name": "@bufferapp/bufflog",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "logger for all javascript and typescript Buffer services",
   "main": "dist/bufflog.js",
   "scripts": {
@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "pino": "^5.16.0",
-    "pino-http": "~5.0.0"
+    "pino-http": "~5.0.0",
+    "redact-object": "3.0.1"
   },
   "types": "dist/bufflog.d.ts",
   "prepublish": "./node_modules/typescript/bin/tsc"

@@ -1,7 +1,10 @@
 # Changelog
 
-## [0.5.3] - 2024-09-11
+## [0.5.4] - 2024-10-23
 - Will redact sensitive information by default
+
+## [0.5.3] - 2024-10-23
+- Do not use, I installed redact-object as a dev dependency and it doesn't work in production
 
 ## [0.5.2] - 2024-09-11
 - Upgraded `dd-trace` to latest version
