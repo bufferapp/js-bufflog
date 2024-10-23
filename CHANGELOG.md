@@ -1,10 +1,10 @@
 # Changelog
 
-## [0.5.5] - 2024-10-23
-- Will redact sensitive information by default
+## [0.5.8] - 2024-10-23
+- Redact req, res, context.req and context.res from logs - req and res at root level are added by pinot-http middleware
 
-## [0.5.3-0.5.4] - 2024-10-23
-- Do not use, I installed redact-object as a dev dependency and it doesn't work in production
+## [0.5.3 - 0.5.7] - 2024-10-23
+- Do not use
 
 ## [0.5.2] - 2024-09-11
 - Upgraded `dd-trace` to latest version

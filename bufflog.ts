@@ -15,9 +15,13 @@ const pinoLogger = require('pino')({
         error: 400,
         fatal: 500
       },
-      // necessary if we want to override the level "number"
-      useOnlyCustomLevels: true,
+    // necessary if we want to override the level "number"
+    useOnlyCustomLevels: true,
 
+    redact: {
+        paths: ['req', 'res', 'context.req', 'context.res'],
+        censor: '[ REDACTED ]',
+    },
 });
 
 import redact from 'redact-object'
@@ -53,10 +57,6 @@ export const KEYS_TO_REDACT = [
     'x-buffer-authentication-access-token',
     'x-buffer-authentication-jwt',
     'x-buffer-authorization-jwt',
-    'req',
-    'request',
-    'res',
-    'response',
 ]
 
 export function getLogger() {
@@ -64,13 +64,17 @@ export function getLogger() {
 }
 
 function sanitizeContext(context?: object): object | undefined {
-    if (!context) {
-        return
-    }
+    // For now, to keep the change limited, disabling this
+    return context
 
-    return redact(context, KEYS_TO_REDACT, '[ REDACTED ]', {
-        ignoreUnknown: true,
-    })
+    // Will re-enable this after Campsite decision
+    // if (!context) {
+    //     return
+    // }
+    //
+    // return redact(context, KEYS_TO_REDACT, '[ REDACTED ]', {
+    //     ignoreUnknown: true,
+    // })
 }
 
 export function debug(message: string, context?: object) {
