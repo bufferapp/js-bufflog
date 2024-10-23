@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.3] - 2024-09-11
+- Will redact sensitive information by default
+
 ## [0.5.2] - 2024-09-11
 - Upgraded `dd-trace` to latest version
 

@@ -1,10 +1,12 @@
 {
   "name": "@bufferapp/bufflog",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "logger for all javascript and typescript Buffer services",
   "main": "dist/bufflog.js",
   "scripts": {
-    "start": "./node_modules/typescript/bin/tsc --noEmit --pretty && node ./dist/index.js",
+    "start": "./node_modules/typescript/bin/tsc --pretty && node ./dist/index.js",
+    "build": "tsc",
+    "pre-publish": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +25,7 @@
     "@types/pino": "^5.15.5",
     "dd-trace": "5.22.0",
     "express": "4.20.0",
+    "redact-object": "3.0.1",
     "typescript": "4.9.5"
   },
   "dependencies": {
