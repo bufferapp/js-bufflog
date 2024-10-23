@@ -53,6 +53,10 @@ export const KEYS_TO_REDACT = [
     'x-buffer-authentication-access-token',
     'x-buffer-authentication-jwt',
     'x-buffer-authorization-jwt',
+    'req',
+    'request',
+    'res',
+    'response',
 ]
 
 export function getLogger() {

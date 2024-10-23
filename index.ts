@@ -35,6 +35,7 @@ app.get('/', (req, res) =>  {
     BuffLog.warning('hello warning');
     BuffLog.error('hello error');
     BuffLog.critical('hello critical');
+    BuffLog.notice("Notice log via endpoint with req and res in context", {req ,res});
     res.send({'hello': 'world'})
 });
 
