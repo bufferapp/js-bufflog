@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.9] - 2024-10-30
+- Upgrade to `dd-trace` and `express` to their latest minor version.
+
 ## [0.5.8] - 2024-10-23
 - Redact req, res, context.req and context.res from logs - req and res at root level are added by pinot-http middleware
 
