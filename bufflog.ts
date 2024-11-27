@@ -1,3 +1,9 @@
+import {
+    REQ_KEYS_REDACTED,
+    REQ_CONTEXT_KEYS_REDACTED,
+    RES_KEYS_REDACTED,
+    RES_CONTEXT_KEYS_REDACTED
+} from './constants'
 const pinoLogger = require('pino')({
     level: process.env.LOG_LEVEL ? String.prototype.toLowerCase.apply(process.env.LOG_LEVEL) : "notice",
     // probably we want to call it `msg`. if so, let's change the PHP library instead
@@ -19,7 +25,12 @@ const pinoLogger = require('pino')({
     useOnlyCustomLevels: true,
 
     redact: {
-        paths: ['req', 'res', 'context.req', 'context.res'],
+        paths: [
+          ...REQ_KEYS_REDACTED,
+          ...RES_KEYS_REDACTED,
+          ...REQ_CONTEXT_KEYS_REDACTED,
+          ...RES_CONTEXT_KEYS_REDACTED,
+        ],
         censor: '[ REDACTED ]',
     },
 });

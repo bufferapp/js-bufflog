@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.6.0] - 2024-11-27
+- Redact specific properties in req and res
+
 ## [0.5.9] - 2024-10-30
 - Upgrade to `dd-trace` and `express` to their latest minor version.
 
