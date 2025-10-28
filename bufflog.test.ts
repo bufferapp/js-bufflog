@@ -1,5 +1,4 @@
 import BuffLog, { middleware } from './bufflog'
-import pino from 'pino'
 
 describe('BuffLog', () => {
   const logger = BuffLog.getLogger()
@@ -59,65 +58,53 @@ describe('BuffLog', () => {
 
 describe('BuffLog Redaction', () => {
   let logs: any[] = []
-  let testLogger: any
+  let stdoutWriteSpy: jest.SpyInstance
+  let originalLogLevel: string
 
   beforeEach(() => {
     logs = []
-    // Create a test logger with the same config but capture output
-    const stream = {
-      write: (line: string) => {
-        logs.push(JSON.parse(line))
-      }
-    }
+    // Set log level to info so our test logs are captured
+    const logger = BuffLog.getLogger()
+    originalLogLevel = logger.level
+    logger.level = 'info'
 
-    testLogger = pino({
-      level: 'debug',
-      messageKey: 'message',
-      customLevels: {
-        debug: 100,
-        info: 200,
-        notice: 250,
-        warn: 300,
-        error: 400,
-        fatal: 500
-      },
-      useOnlyCustomLevels: true,
-      redact: {
-        paths: [
-          'req.body.password',
-          'req.headers',
-          'req.cookies',
-          'context.req.body.password',
-          'context.req.headers',
-          'context.req.cookies',
-        ],
-        censor: '[ REDACTED ]',
-      },
-    }, stream)
+    // Spy on stdout to capture actual BuffLog output
+    stdoutWriteSpy = jest.spyOn(process.stdout, 'write').mockImplementation((chunk: any) => {
+      try {
+        logs.push(JSON.parse(chunk.toString()))
+      } catch (e) {
+        // Ignore non-JSON output
+      }
+      return true
+    })
   })
 
-  it('redacts sensitive req fields (headers, cookies, passwords)', () => {
-    testLogger.info({
-      context: {
-        req: {
-          headers: {
-            authorization: 'Bearer secret-token',
-            cookie: 'session=secret-session'
-          },
-          body: {
-            username: 'testuser',
-            password: 'secret-password',
-            email: 'test@example.com'
-          },
-          cookies: {
-            session: 'secret-session-id'
-          },
-          method: 'POST',
-          path: '/api/login'
+  afterEach(() => {
+    stdoutWriteSpy.mockRestore()
+    // Restore original log level
+    BuffLog.getLogger().level = originalLogLevel
+  })
+
+  it('redacts sensitive req fields (headers, cookies, passwords) in actual BuffLog logger', () => {
+    BuffLog.info('Test with sensitive data', {
+      req: {
+        headers: {
+          authorization: 'Bearer secret-token',
+          cookie: 'session=secret-session'
         },
-        userId: 'user-123'
-      }
-    }, 'Test with sensitive data')
+        body: {
+          username: 'testuser',
+          password: 'secret-password',
+          email: 'test@example.com'
+        },
+        cookies: {
+          session: 'secret-session-id'
+        },
+        method: 'POST',
+        path: '/api/login'
+      },
+      userId: 'user-123'
+    })
 
     expect(logs).toHaveLength(1)
     expect(logs[0].context.req.headers).toBe('[ REDACTED ]')
@@ -130,17 +117,33 @@ describe('BuffLog Redaction', () => {
     expect(logs[0].context.userId).toBe('user-123')
   })
 
-  it('does not redact non-sensitive data', () => {
-    testLogger.info({
-      context: {
-        userId: 'user-123',
-        action: 'login',
-        metadata: {
-          ip: '192.168.1.1',
-          userAgent: 'Mozilla/5.0'
-        }
+  it('redacts query.password in actual BuffLog logger', () => {
+    BuffLog.info('Test with query password', {
+      req: {
+        query: {
+          password: 'secret-query-password',
+          page: '1'
+        },
+        method: 'GET',
+        path: '/api/data'
       }
-    }, 'Test without sensitive data')
+    })
+
+    expect(logs).toHaveLength(1)
+    expect(logs[0].context.req.query.password).toBe('[ REDACTED ]')
+    expect(logs[0].context.req.query.page).toBe('1')
+    expect(logs[0].context.req.method).toBe('GET')
+  })
+
+  it('does not redact non-sensitive data in actual BuffLog logger', () => {
+    BuffLog.info('Test without sensitive data', {
+      userId: 'user-123',
+      action: 'login',
+      metadata: {
+        ip: '192.168.1.1',
+        userAgent: 'Mozilla/5.0'
+      }
+    })
 
     expect(logs).toHaveLength(1)
     expect(logs[0].context.userId).toBe('user-123')
