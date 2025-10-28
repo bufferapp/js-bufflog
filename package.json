@@ -4,7 +4,7 @@
   "description": "logger for all javascript and typescript Buffer services",
   "main": "dist/bufflog.js",
   "scripts": {
-    "start": "./node_modules/typescript/bin/tsc --pretty && node ./dist/index.js",
+    "start": "./node_modules/typescript/bin/tsc --pretty && node ./dist/bufflog.js",
     "build": "./node_modules/typescript/bin/tsc",
     "test": "jest"
   },
