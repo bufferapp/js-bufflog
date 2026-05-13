@@ -2,7 +2,9 @@ node_modules
 .vscode
 .idea
 .env
+.claude
 built
 coverage
 out
 dist
+*.tgz
