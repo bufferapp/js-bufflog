@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+- Upgrade the `dd-trace` and `express` dev dependencies to their latest minor version.
+- Move the `qs` override to `^6.16.0`. `6.16.0` is the first version that enforces `arrayLimit` on a bracket key, so the earlier `6.14.2` pin only closed half of the bypass. The caret lets the override pick up later patches on its own.
+
 ## [0.6.0] - 2024-11-27
 - Redact specific properties in req and res
 
