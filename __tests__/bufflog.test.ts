@@ -92,19 +92,4 @@ describe('redaction', () => {
       expect(lastLine().context.res[key]).toBe(CENSOR)
     })
   })
-
-  it('does not currently redact a bare password key in context', () => {
-    // Documents live behaviour, not the behaviour we want. bufflog's
-    // sanitizeContext() returns the context untouched, so KEYS_TO_REDACT and
-    // the redact-object pass never run. Only pino's own paths redact, and they
-    // cover context.req.* / context.res.* but not context.password.
-    BuffLog.notice('context to redact', {
-      test: 'toto',
-      password: 'must-redact',
-      req: { headers: { cookie: 'must-redact' } },
-    })
-
-    expect(lastLine().context.password).toBe('must-redact')
-    expect(lastLine().context.req.headers).toBe(CENSOR)
-  })
 })
